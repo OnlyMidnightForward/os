@@ -32,6 +32,7 @@ import type {
   TradeActivity,
   Proposal,
 } from '@/lib/schemas';
+import { CEO } from '@/lib/lumera';
 
 // Monochrome palette — the UI is strict black & white; "color" fields carry
 // grayscale steps used only for subtle hierarchy.
@@ -66,11 +67,11 @@ const agents: Agent[] = [
   {
     id: 'conductor',
     departmentId: 'dept-tech',
-    name: 'Conductor',
-    role: 'Broadcast & Orchestration',
+    name: CEO.name,
+    role: `${CEO.title} · Runs Every Agent`,
     status: 'active',
     tier: 'lead',
-    description: 'Fans your message out to every agent at once and checks which instance hosts (Clawline, Ollama, tmux) are available for future bindings.',
+    description: `${CEO.summary} Fans your message out to every agent at once and checks which instance hosts are available for future bindings (planned: Hermes).`,
     model: 'fan-out runtime',
     tools: ['broadcast', 'clawline', 'tmux'],
     parentId: null,

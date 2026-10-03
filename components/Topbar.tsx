@@ -5,6 +5,7 @@ import { Bot, Search } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { OsMark } from '@/components/OsMark';
 import { CONDUCTOR_OPEN_EVENT } from '@/components/ConductorPanel';
+import { CEO } from '@/lib/lumera';
 
 const SEGMENT_LABELS: Record<string, string> = {
   '': 'home',
@@ -49,8 +50,8 @@ export function Topbar() {
             Conductor answers about whatever screen you're on */}
         <button
           onClick={() => window.dispatchEvent(new CustomEvent(CONDUCTOR_OPEN_EVENT))}
-          title="Ask the Conductor about this screen"
-          aria-label="Open the Conductor agent panel"
+          title={`Ask ${CEO.name} about this screen`}
+          aria-label={`Open ${CEO.name}, the ${CEO.title} agent panel`}
           data-lens="c"
           className="pressable is-dark grid h-[30px] w-[30px] place-items-center rounded-ctl border border-os-border bg-os-surface text-os-muted hover:text-os-accent"
         >

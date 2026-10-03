@@ -16,6 +16,7 @@ import { SparkIcon } from '@/components/SparkIcon';
 import { ConductorEmblem } from '@/components/ConductorEmblem';
 import { Synthesizing } from '@/components/Synthesizing';
 import type { QuickAction } from '@/lib/screen-context';
+import { CEO } from '@/lib/lumera';
 
 type Turn = {
   id: string;
@@ -281,8 +282,8 @@ export function ConductorPanel() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          aria-label="Open the Conductor agent panel"
-          title="Ask the Conductor about this screen"
+          aria-label={`Open ${CEO.name}, the ${CEO.title} agent panel`}
+          title={`Ask ${CEO.name} about this screen`}
           className="pressable group fixed bottom-5 right-5 z-40 flex items-center rounded-full border border-os-border-strong bg-os-surface/90 p-2.5 opacity-60 backdrop-blur hover:opacity-100"
           style={{ transitionTimingFunction: 'var(--ease)', boxShadow: 'none' }}
         >
@@ -336,7 +337,7 @@ export function ConductorPanel() {
           <ConductorEmblem size={32} thinking={sending} className="shrink-0" />
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-              <span className="text-[12.5px] font-bold tracking-[0.12em]">CONDUCTOR</span>
+              <span className="text-[12.5px] font-bold tracking-[0.12em] uppercase">{CEO.name} · {CEO.title}</span>
               {/* whatever is actually in the seat on the board — never a
                   hardcoded id, and honest when the board can't be reached */}
               <span className="truncate rounded-ctl border border-os-border px-1.5 py-px font-mono text-[9px] text-os-dim">
@@ -359,7 +360,7 @@ export function ConductorPanel() {
           <button
             data-lens="c"
             onClick={() => setOpen(false)}
-            aria-label="Close Conductor"
+            aria-label={`Close ${CEO.name}`}
             className="pressable is-dark shrink-0 rounded-ctl p-1 text-os-dim"
           >
             <X className="h-4 w-4" />

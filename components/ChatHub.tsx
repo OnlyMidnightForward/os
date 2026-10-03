@@ -8,6 +8,7 @@ import { Synthesizing } from '@/components/Synthesizing';
 import { Label } from '@/components/terminal';
 import type { ConversationSummary } from '@/lib/chats';
 import type { AgentMessage } from '@/lib/schemas';
+import { CEO } from '@/lib/lumera';
 
 /**
  * The Claude-style chat hub: ONE rounded shell — the
@@ -63,7 +64,7 @@ export function ChatHub({
   const scroller = useRef<HTMLDivElement>(null);
 
   const nameOf = (id: string) =>
-    id === CONDUCTOR ? 'Conductor · CEO' : (roster.find((a) => a.id === id)?.name ?? id);
+    id === CONDUCTOR ? `${CEO.name} · ${CEO.title}` : (roster.find((a) => a.id === id)?.name ?? id);
 
   const loadThread = useCallback(async (agentId: string) => {
     setLoadingThread(true);
@@ -226,7 +227,7 @@ export function ChatHub({
                   .map((a) => railRow(a.id, a.name, a.description.slice(0, 60)))
               ) : (
                 <>
-                  {railRow(CONDUCTOR, 'Conductor · CEO', 'the live board thread on the host')}
+                  {railRow(CONDUCTOR, `${CEO.name} · ${CEO.title}`, 'the live board thread on the host')}
                   {summaries
                     .filter((c) => c.agentId !== 'conductor')
                     .filter((c) => c.agentName.toLowerCase().includes(query.trim().toLowerCase()))
@@ -242,7 +243,7 @@ export function ChatHub({
           </>
         ) : (
           <div className="min-h-0 flex-1 space-y-1 overflow-y-auto overscroll-contain py-2">
-            {stripDot(CONDUCTOR, 'Conductor · CEO')}
+            {stripDot(CONDUCTOR, `${CEO.name} · ${CEO.title}`)}
             {summaries
               .filter((c) => c.agentId !== 'conductor')
               .map((c) => stripDot(c.agentId, c.agentName))}

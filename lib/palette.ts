@@ -1,4 +1,5 @@
 import { NAV_OPERATE, NAV_AGENTS, NAV_INTELLIGENCE, NAV_SYSTEM, NAV_LIBRARY } from '@/lib/nav';
+import { CEO } from '@/lib/lumera';
 
 export type PaletteKind = 'go' | 'run' | 'ask';
 export type PaletteScope = 'all' | PaletteKind;
@@ -70,17 +71,17 @@ const EXTERNAL: PaletteCommand[] = [
 const ASK: PaletteCommand[] = [
   {
     id: 'ask-attention', kind: 'ask', glyph: '?',
-    title: 'What needs my attention?', sub: 'Conductor · triage comms and the board',
+    title: 'What needs my attention?', sub: `${CEO.name} · triage comms and the board`,
     prompt: 'What needs my attention right now? Triage comms and the board and give me the top items.',
   },
   {
     id: 'ask-status', kind: 'ask', glyph: '?',
-    title: 'Agent status report', sub: 'Conductor · last run of every agent',
+    title: 'Agent status report', sub: `${CEO.name} · last run of every agent`,
     prompt: 'Give me a status report: the last run of every agent and anything that failed.',
   },
   {
     id: 'ask-day', kind: 'ask', glyph: '?',
-    title: 'Plan my day', sub: 'Conductor · calendar + open work',
+    title: 'Plan my day', sub: `${CEO.name} · calendar + open work`,
     prompt: 'Plan my day from the calendar and the open work on the board.',
   },
   {

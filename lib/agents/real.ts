@@ -18,6 +18,7 @@ import type { AgentRunResult, RuntimeAgent } from '@/lib/agents/runtime';
 import { brandDealAgent } from '@/lib/agents/brand-deal-agent';
 import { newsletterAgent } from '@/lib/agents/newsletter-agent';
 import { lumeraAgents } from '@/lib/agents/lumera-agents';
+import { CEO } from '@/lib/lumera';
 
 /**
  * The real agent roster. Every run() does actual work against a live system —
@@ -119,7 +120,7 @@ export const realAgents: RuntimeAgent[] = [
   // ── Command ──────────────────────────────────────────────────────────
   {
     id: 'conductor',
-    name: 'Conductor',
+    name: CEO.name,
     description: 'Broadcast fan-out + instance host availability (Clawline gateway, Ollama, tmux) for future bindings.',
     departmentId: 'dept-tech',
     async run() {

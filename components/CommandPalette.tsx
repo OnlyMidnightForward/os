@@ -6,6 +6,7 @@ import { DIGIT_VIEWS } from '@/lib/nav';
 import { buildPaletteCommands, filterPalette, type PaletteAgent, type PaletteCommand, type PaletteScope } from '@/lib/palette';
 import { Chip } from '@/components/Pressable';
 import { useToast } from '@/components/Toaster';
+import { CEO } from '@/lib/lumera';
 
 const SCOPES: PaletteScope[] = ['all', 'go', 'run', 'ask'];
 
@@ -71,7 +72,7 @@ export function CommandPalette({ agents }: { agents: PaletteAgent[] }) {
   };
 
   const ask = async (message: string, label: string) => {
-    const id = toast.busy(`Asking the Conductor · "${label}"`);
+    const id = toast.busy(`Asking ${CEO.name} · "${label}"`);
     try {
       const res = await fetch('/api/conductor/chat', {
         method: 'POST',
@@ -79,9 +80,9 @@ export function CommandPalette({ agents }: { agents: PaletteAgent[] }) {
         body: JSON.stringify({ message }),
       });
       if (!res.ok) throw new Error(String(res.status));
-      toast.update(id, 'ok', `Sent to the Conductor · "${label}"`);
+      toast.update(id, 'ok', `Sent to ${CEO.name} · "${label}"`);
     } catch {
-      toast.update(id, 'err', 'Conductor unreachable');
+      toast.update(id, 'err', `${CEO.name} unreachable`);
     }
   };
 
@@ -213,7 +214,7 @@ export function CommandPalette({ agents }: { agents: PaletteAgent[] }) {
             <div className="animate-enter p-7 text-center font-mono text-[10.5px] leading-relaxed text-os-dim">
               <span className="text-os-text">No match for «{q}».</span>
               <br />
-              <span className="text-[9.5px]">press ↵ to ask the Conductor instead</span>
+              <span className="text-[9.5px]">press ↵ to ask {CEO.name} instead</span>
             </div>
           )}
         </div>

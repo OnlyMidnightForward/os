@@ -5,6 +5,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { ConductorEmblem } from '@/components/ConductorEmblem';
 import { ConductorComposer } from '@/components/ConductorComposer';
 import { Synthesizing } from '@/components/Synthesizing';
+import { CEO } from '@/lib/lumera';
 
 /**
  * Conductor chat for the /agents page — the REAL CEO. Speaks to the board's
@@ -133,7 +134,7 @@ export function ConductorChat({
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             <span aria-hidden className="h-1.5 w-1.5 shrink-0 animate-pulse bg-os-ok" />
-            <span className="text-[13px] font-bold tracking-[0.12em]">CONDUCTOR</span>
+            <span className="text-[13px] font-bold tracking-[0.12em] uppercase">{CEO.name}</span>
             <span className="rounded-full border border-os-border px-1.5 py-0.5 font-mono text-[8.5px] text-os-dim">
               board · {model ?? 'model unknown'}
             </span>

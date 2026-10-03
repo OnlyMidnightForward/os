@@ -19,6 +19,17 @@ export const OWNER = {
   instagram: '@lumera.marketing',
 } as const;
 
+/**
+ * Lana — the CEO agent T talks to. She sits in the Conductor seat (id
+ * 'conductor' internally): one chat that reaches and runs every other agent.
+ * Planned to become a Hermes agent; the seat stays the same when it does.
+ */
+export const CEO = {
+  name: 'Lana',
+  title: 'CEO',
+  summary: 'The CEO agent T talks to. She briefs, delegates to every other agent and runs the company day to day.',
+} as const;
+
 export const OFFER = {
   system: 'Suburb Authority System',
   steps: ['Own the Feed', 'Capture the Intent', 'Never Lose the Lead'],

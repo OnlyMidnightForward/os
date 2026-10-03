@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { OWNER } from '@/lib/lumera';
+import { CEO, OWNER } from '@/lib/lumera';
 import { Users } from 'lucide-react';
 import { getDb } from '@/lib/data';
 import { paperclipAgents, type PaperclipAgent } from '@/lib/connectors/paperclip';
@@ -191,7 +191,7 @@ export default async function OrgChartPage({ searchParams }: { searchParams?: { 
         <div className="text-[10px] uppercase tracking-[0.3em] text-os-dim">Operator</div>
         <div className="mt-2 h-6 w-px bg-os-border-bright" />
         <div className="flex items-center gap-2">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-os-muted">Conductor (Super Agent)</span>
+          <span className="text-[10px] uppercase tracking-[0.2em] text-os-muted">{CEO.name} ({CEO.title})</span>
           {liveOrg.conductor && <LiveChip agent={liveOrg.conductor} />}
         </div>
         <div className="h-3 w-px bg-os-border-bright" />

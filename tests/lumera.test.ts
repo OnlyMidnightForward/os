@@ -104,3 +104,12 @@ describe('capacity + money', () => {
     expect(clash.conflicts).toEqual(['Brisbane · Paddington']);
   });
 });
+
+describe('Lana, the CEO agent', () => {
+  test('sits in the conductor seat under her own name', async () => {
+    const { CEO } = await import('@/lib/lumera');
+    const { realAgents } = await import('@/lib/agents/real');
+    expect(CEO.name).toBe('Lana');
+    expect(realAgents.find((a) => a.id === 'conductor')?.name).toBe('Lana');
+  });
+});
