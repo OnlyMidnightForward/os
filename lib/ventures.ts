@@ -1,5 +1,8 @@
 /**
- * Alex's two active income sources — the venture lens over the OS.
+ * T's two active income sources — Lumera and the real estate media work — as
+ * the venture lens over the OS. The demo's original two ventures (Vantage and
+ * Launchpad Cohort) are kept below as ARCHIVED_DEMO_VENTURES: the seeded demo
+ * funnel still references them, and nothing from the demo is thrown away.
  *
  * One database, one G-Brain, one agent roster: ventures never partition the
  * data. They are saved filters — each one names the agents that serve it per
@@ -31,6 +34,58 @@ const SHARED_OPS = ['conductor', 'stack-monitor'];
 const SHARED_KNOWLEDGE = ['data-agent', 'markdown-auditor', 'vector-auditor'];
 
 export const VENTURES: Venture[] = [
+  {
+    id: 'lumera',
+    label: 'Lumera',
+    kind: 'Marketing agency',
+    // Brand violet (--color-p2) from lumeramarketing.com.au.
+    color: '#7c3aed',
+    detail: 'The Suburb Authority System: predictable listings for QLD real estate agents.',
+    brainTag: 'lumera',
+    focus: [
+      'Land 3 founding agents and turn them into case studies',
+      'Hit the Full Diary Guarantee: 10 appraisals in 90 days, every agent',
+      'Pipeline to 10 agents: Instagram, paid ads to agents, cold outreach',
+      'Write every SOP as it happens, so hiring and licensing are possible later',
+    ],
+    areaAgents: {
+      marketing: ['lumera-social', 'case-study-builder', 'shoot-planner', 'farm-ads-manager'],
+      sales: ['lumera-prospector', 'farm-area-registry', 'crm-pulse'],
+      communication: ['speed-to-lead', 'weekly-report', 'comms-agent', 'gmail-worker'],
+      finances: ['retainer-billing', 'stripe-sales', 'payments-pulse'],
+      knowledge: ['sop-librarian', ...SHARED_KNOWLEDGE],
+      operations: ['guarantee-tracker', 'capacity-planner', ...SHARED_OPS],
+    },
+  },
+  {
+    id: 'lumera-media',
+    label: 'Real Estate Media',
+    kind: 'Photo & video production',
+    // Brand gold (--color-gold) from lumeramarketing.com.au.
+    color: '#d9b676',
+    detail: 'Listing photo and video shoots: cash flow now, and warm leads for Lumera.',
+    brainTag: 'media',
+    focus: [
+      'Keep listing shoots funding Lumera while it ramps',
+      'Every happy media client is a Lumera prospect: offer the system',
+      'Hand shoots to a second shooter as Lumera fills the calendar',
+    ],
+    areaAgents: {
+      marketing: ['social-agent', 'reelkit-editor'],
+      sales: ['lumera-prospector', 'sales-agent'],
+      communication: ['comms-agent', 'gmail-worker'],
+      finances: ['payments-pulse', 'stripe-sales'],
+      knowledge: SHARED_KNOWLEDGE,
+      operations: ['shoot-planner', ...SHARED_OPS],
+    },
+  },
+];
+
+/**
+ * The demo's original ventures, archived rather than deleted. getVenture()
+ * still resolves them so the seeded demo funnel keeps its colors and labels.
+ */
+export const ARCHIVED_DEMO_VENTURES: Venture[] = [
   {
     id: 'vantage',
     label: 'Vantage',
@@ -78,7 +133,7 @@ export const VENTURES: Venture[] = [
 ];
 
 export function getVenture(id: string): Venture | null {
-  return VENTURES.find((v) => v.id === id) ?? null;
+  return VENTURES.find((v) => v.id === id) ?? ARCHIVED_DEMO_VENTURES.find((v) => v.id === id) ?? null;
 }
 
 /** Every agent serving a venture, across all its life areas. */
@@ -92,7 +147,7 @@ export function venturesForAgent(agentId: string): Venture[] {
   return VENTURES.filter((v) => ventureAgentSet(v.id).has(agentId));
 }
 
-/** Agents on one life area for one venture (the click-through Alex described). */
+/** Agents on one life area for one venture (the click-through on /org). */
 export function ventureAreaAgents(ventureId: string, areaId: string): string[] {
   return getVenture(ventureId)?.areaAgents[areaId] ?? [];
 }

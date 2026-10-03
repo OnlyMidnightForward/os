@@ -5,9 +5,9 @@ import { DEFAULT_THEME, THEMES, THEME_META, THEME_STORAGE_KEY, THEME_INIT_SCRIPT
 
 describe('theme registry', () => {
   test('six pickable themes, mono (Monolith) first as the default identity', () => {
-    expect(DEFAULT_THEME).toBe('mono');
+    expect(DEFAULT_THEME).toBe('lumera');
     expect(THEMES[0]).toBe(DEFAULT_THEME);
-    expect(THEMES).toEqual(['mono', 'mono-light', 'dark', 'light', 'midnight', 'ember']);
+    expect(THEMES).toEqual(['lumera', 'mono', 'mono-light', 'dark', 'light', 'midnight', 'ember']);
     expect(new Set(THEMES).size).toBe(THEMES.length);
     expect(THEME_STORAGE_KEY).toBe('alex-theme');
   });
@@ -32,8 +32,8 @@ describe('theme registry', () => {
   test('resolveInitialTheme honors any valid stored value, else falls back to mono', () => {
     expect(resolveInitialTheme('ember')).toBe('ember');
     expect(resolveInitialTheme('dark')).toBe('dark');
-    expect(resolveInitialTheme(null)).toBe('mono');
-    expect(resolveInitialTheme('garbage')).toBe('mono');
+    expect(resolveInitialTheme(null)).toBe('lumera');
+    expect(resolveInitialTheme('garbage')).toBe('lumera');
   });
 
   test('nextTheme cycles the whole ring', () => {
@@ -50,7 +50,7 @@ describe('theme registry', () => {
   test('the pre-paint init script accepts every registered theme id and falls back to mono', () => {
     for (const t of THEMES) expect(THEME_INIT_SCRIPT).toContain(t);
     expect(THEME_INIT_SCRIPT).toContain(THEME_STORAGE_KEY);
-    expect(THEME_INIT_SCRIPT).toContain(`t="mono"`);
+    expect(THEME_INIT_SCRIPT).toContain(`t="lumera"`);
     expect(THEME_INIT_SCRIPT).not.toContain(`t="dark"`);
   });
 

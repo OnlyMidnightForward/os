@@ -23,7 +23,6 @@ import {
   LayoutGrid,
   Layers,
   Stethoscope,
-  CandlestickChart,
   MessagesSquare,
   Gauge,
   Crosshair,
@@ -41,7 +40,7 @@ export const NAV_OPERATE: NavItem[] = [
   { href: '/content', label: 'Content', icon: Clapperboard },
   { href: '/brand-deals', label: 'Brand Deals', icon: Handshake },
   { href: '/finances', label: 'Finances', icon: Wallet },
-  { href: '/trading', label: 'Trading', icon: CandlestickChart },
+  // Trading is hidden from the sidebar for Lumera; /trading still works.
   // Slab import: last in Operate on purpose, outside the nine digit shortcuts.
   { href: '/adpilot', label: 'AdPilot', icon: Crosshair },
 ];
@@ -86,4 +85,5 @@ export const NAV_ORDER: string[] = [
 ].map((n) => n.href);
 
 /** Digit keys 1–9 jump to the first nine views in visible order. */
-export const DIGIT_VIEWS: string[] = NAV_ORDER.slice(0, 9);
+// AdPilot stays outside the digits even now Trading is hidden above it.
+export const DIGIT_VIEWS: string[] = NAV_ORDER.filter((href) => href !== '/adpilot').slice(0, 9);

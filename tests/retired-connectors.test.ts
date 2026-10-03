@@ -110,8 +110,10 @@ describe('Notion is gone except for /brand-deals, which he kept', () => {
 
     expect(agents.map((a) => a.id)).not.toContain('notion-sync');
     expect(sops.map((t) => t.id)).not.toContain('sop-notion-sync');
-    // and no surviving agent still claims Notion as a tool
-    for (const a of agents) expect(a.tools, `agent ${a.id}`).not.toContain('notion');
+    // and no demo agent still claims Notion as a tool. Lumera uses Notion for
+    // SOPs and case studies, so its two agents are the deliberate exception.
+    const LUMERA_NOTION = new Set(['sop-librarian', 'case-study-builder']);
+    for (const a of agents) if (!LUMERA_NOTION.has(a.id)) expect(a.tools, `agent ${a.id}`).not.toContain('notion');
   });
 
   test('the onboarding agent runs on the two rails that are left', () => {

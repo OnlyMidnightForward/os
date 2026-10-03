@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { OWNER } from '@/lib/lumera';
 import { Users } from 'lucide-react';
 import { getDb } from '@/lib/data';
 import { paperclipAgents, type PaperclipAgent } from '@/lib/connectors/paperclip';
@@ -186,7 +187,7 @@ export default async function OrgChartPage({ searchParams }: { searchParams?: { 
       {/* Operator */}
       <Rise i={5} className="flex flex-col items-center">
         <Users className="h-7 w-7 text-os-text" />
-        <div className="mt-1 text-base font-bold tracking-wide">Alex</div>
+        <div className="mt-1 text-base font-bold tracking-wide">{OWNER.name}</div>
         <div className="text-[10px] uppercase tracking-[0.3em] text-os-dim">Operator</div>
         <div className="mt-2 h-6 w-px bg-os-border-bright" />
         <div className="flex items-center gap-2">

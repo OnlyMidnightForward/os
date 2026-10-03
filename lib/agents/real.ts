@@ -17,6 +17,7 @@ import type { LlmToolSpec } from '@/lib/connectors/llm';
 import type { AgentRunResult, RuntimeAgent } from '@/lib/agents/runtime';
 import { brandDealAgent } from '@/lib/agents/brand-deal-agent';
 import { newsletterAgent } from '@/lib/agents/newsletter-agent';
+import { lumeraAgents } from '@/lib/agents/lumera-agents';
 
 /**
  * The real agent roster. Every run() does actual work against a live system —
@@ -530,4 +531,6 @@ export const realAgents: RuntimeAgent[] = [
       };
     },
   },
+  // ── Lumera ───────────────────────────────────────────────────────────
+  ...lumeraAgents,
 ];

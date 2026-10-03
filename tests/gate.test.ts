@@ -11,12 +11,9 @@ describe('isGated', () => {
     expect(isGated({})).toBe(false);
   });
 
-  test('gated on Vercel (transition: the old demo stays gated)', () => {
-    expect(isGated({ VERCEL: '1' })).toBe(true);
-  });
-
-  test('gated on Railway (RAILWAY_ENVIRONMENT is auto-set there)', () => {
-    expect(isGated({ RAILWAY_ENVIRONMENT: 'production' })).toBe(true);
+  test('a real deployment is NOT gated just for being on a platform', () => {
+    expect(isGated({ VERCEL: '1' })).toBe(false);
+    expect(isGated({ RAILWAY_ENVIRONMENT: 'production' })).toBe(false);
   });
 
   test('DEMO_GATE=1 forces the gate on even with no platform env', () => {

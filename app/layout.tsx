@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { JetBrains_Mono } from 'next/font/google';
+import { COHORT_ENABLED } from '@/lib/cohort';
+import { DM_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Sidebar } from '@/components/Sidebar';
 import { Topbar } from '@/components/Topbar';
@@ -19,9 +20,17 @@ const fontMono = JetBrains_Mono({
   variable: '--font-mono',
 });
 
+// Lumera's brand face (lumeramarketing.com.au); the lumera theme maps
+// --font-ui onto it, every other theme keeps JetBrains Mono.
+const fontDm = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-dm',
+});
+
 export const metadata: Metadata = {
-  title: 'FOUNDER OS',
-  description: 'Personal operating system and AI agent command center for a single person company',
+  title: 'LUMERA OS',
+  description: 'Lumera’s operating system: the Suburb Authority System, its agents and the business around it',
 };
 
 /** The palette builds its own Go-to group from lib/nav; the layout only feeds
@@ -35,7 +44,7 @@ function paletteAgents(): PaletteAgent[] {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={fontMono.variable} suppressHydrationWarning>
+    <html lang="en" className={`${fontMono.variable} ${fontDm.variable}`} suppressHydrationWarning>
       <head>
         {/* Apply the persisted theme before first paint — no dark↔light flash. */}
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
@@ -54,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="mx-auto max-w-[1280px] wide:max-w-[1760px] ultra:max-w-none">
               {children}
               {/* Cohort invite — last thing on every view, by construction */}
-              <CohortBanner />
+              {COHORT_ENABLED && <CohortBanner />}
             </div>
           </main>
         </div>
@@ -62,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Notion-style agent dock — the Conductor, aware of the current screen */}
         <ConductorPanel />
         {/* First-run welcome on the home screen — once per browser */}
-        <CohortModal />
+        {COHORT_ENABLED && <CohortModal />}
         </Toaster>
       </body>
     </html>

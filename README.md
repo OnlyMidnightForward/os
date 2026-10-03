@@ -1,3 +1,19 @@
+# Lumera OS
+
+This is **Lumera's** operating system, built on the open-source Founder OS demo.
+It runs the Suburb Authority System for QLD real estate agents, with Lumera's
+brand theme as the default.
+
+- **Business profile and clients:** `lib/lumera.ts`. Add a row to `CLIENTS` when an agent signs.
+- **Lumera agents (12):** seeded in `lib/seed.ts`; runtime in `lib/agents/lumera-agents.ts`
+- **Five-year plan:** `lib/lumera-roadmap.ts` (shown on `/roadmap`)
+- **Ventures:** Lumera and Real Estate Media in `lib/ventures.ts`. The demo's ventures are archived there, not deleted.
+- **Theme:** `lumera` in `lib/theme.ts` and `app/globals.css`. Every original theme is still in the picker.
+- **Hidden, not removed:** `/trading` (off the sidebar) and the cohort invite (`COHORT_ENABLED` in `lib/cohort.ts`)
+- **Railway:** set `FOUNDER_OS_ACCESS_TOKEN`, then add a Volume at `/data` with `DATA_DIR=/data`. See `.env.example`.
+
+---
+
 # Founder OS
 
 **A personal operating system for a one-person business: a live web command

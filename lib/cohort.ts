@@ -7,6 +7,12 @@
  *  - `CohortBanner` — a permanent footer CTA under every view.
  */
 
+/**
+ * Off for Lumera: the course invite is the public demo's growth surface, not
+ * this business's. Flip to true to bring both placements back.
+ */
+export const COHORT_ENABLED = false;
+
 /** Where both placements send people. */
 export const COHORT_URL = 'https://founderos.example.com';
 

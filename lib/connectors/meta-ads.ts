@@ -19,7 +19,7 @@ export async function metaAdsStatus(): Promise<ConnectorStatus> {
       ...base,
       state: 'not_configured',
       detail:
-        'Paid-funnel attribution (ad → opt-in → purchase) for Vantage + Launchpad Cohort. Set META_ADS_ACCESS_TOKEN to wire the Meta Ads MCP.',
+        'Farm-area campaigns for Lumera clients plus Lumera’s own ads to agents. Set META_ADS_ACCESS_TOKEN to connect.',
     };
   }
   return {

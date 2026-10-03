@@ -89,12 +89,12 @@ describe('blueprint: the map cannot drift from the system', () => {
     }
   });
 
-  test('named surface->store reads exist: brain, finances, trading, brand deals, adpilot', () => {
+  test('named surface->store reads exist: brain, finances, brand deals, adpilot', () => {
     const uses = (from: string, to: string) => graph.edges.some((e) => e.from === from && e.to === to && e.kind === 'uses');
     expect(uses('surface-brain', 'store-brain')).toBe(true);
     expect(uses('surface-finances', 'store-ledger')).toBe(true);
     expect(uses('surface-finances', 'store-bank')).toBe(true);
-    expect(uses('surface-trading', 'store-candles')).toBe(true);
+    // Trading is hidden from the Lumera sidebar, so the blueprint drops its surface.
     expect(uses('surface-brand-deals', 'store-notion-deals')).toBe(true);
     expect(uses('surface-adpilot', 'store-ad-intel')).toBe(true);
   });

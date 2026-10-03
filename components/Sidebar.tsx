@@ -174,9 +174,13 @@ export function Sidebar() {
           <div className="flex items-center gap-[11px]">
             <OsMark size={34} className="shrink-0" />
             <div>
-              <div className="text-[13px] font-bold tracking-[0.14em]">FOUNDER OS</div>
+              {/* Wordmark after the lumeramarketing.com.au logo: light LUME, solid RA */}
+              <div className="text-[13px] tracking-[0.32em]">
+                <span className="font-normal text-os-accent2">LUME</span>
+                <span className="font-bold">RA</span>
+              </div>
               <div className="mt-[3px] whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.16em] text-os-dim">
-                v3 · Operator Mode
+                Operating System
               </div>
             </div>
           </div>

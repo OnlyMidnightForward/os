@@ -18,13 +18,13 @@ export async function ghlStatus(): Promise<ConnectorStatus> {
       ...base,
       state: 'not_configured',
       detail:
-        'Launchpad Cohort pipeline (alex@launchpadcohort.example.com). Set GHL_API_KEY (Private Integration token) + GHL_LOCATION_ID in .env.local.',
+        'Lumera CRM: lead capture, 60-second follow-up and nurture. Set GHL_API_KEY (Private Integration token) + GHL_LOCATION_ID.',
     };
   }
   return {
     ...base,
     state: 'connected',
-    detail: 'Private Integration token present · LC opportunities feed the funnel live.',
+    detail: 'Private Integration token present · Lumera opportunities feed the funnel live.',
     meta: { keyed: 'yes' },
   };
 }

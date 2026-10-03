@@ -13,7 +13,7 @@ const KNOWN_AGENTS = new Set(realAgents.map((a) => a.id));
 
 describe('VENTURES', () => {
   test('the two active income sources, each with a distinct color and brain tag', () => {
-    expect(VENTURES.map((v) => v.id)).toEqual(['vantage', 'launchpad-cohort']);
+    expect(VENTURES.map((v) => v.id)).toEqual(['lumera', 'lumera-media']);
     expect(new Set(VENTURES.map((v) => v.color)).size).toBe(2);
     expect(new Set(VENTURES.map((v) => v.brainTag)).size).toBe(2);
     for (const v of VENTURES) {
@@ -24,10 +24,12 @@ describe('VENTURES', () => {
 
   test('venture colors match each real brand source', () => {
     const byId = new Map(VENTURES.map((v) => [v.id, v]));
-    // Vantage — sampled from VANTAGE LOGO (spring green)
-    expect(byId.get('vantage')?.color).toBe('#00ffaa');
-    // Launchpad Cohort — hsl(355 70% 50%) from the live site theme + brand guide
-    expect(byId.get('launchpad-cohort')?.color).toBe('#d9263f');
+    // Lumera violet and gold — sampled from lumeramarketing.com.au
+    expect(byId.get('lumera')?.color).toBe('#7c3aed');
+    expect(byId.get('lumera-media')?.color).toBe('#d9b676');
+    // archived demo ventures still resolve for the seeded funnel
+    expect(getVenture('vantage')?.color).toBe('#00ffaa');
+    expect(getVenture('launchpad-cohort')?.color).toBe('#d9263f');
   });
 
   test('Personal Brand (brand-deals) is retired from the venture lens', () => {
@@ -79,12 +81,11 @@ describe('lookups', () => {
   });
 
   test('venturesForAgent reverse lookup: shared infra agents serve both ventures', () => {
-    expect(venturesForAgent('conductor').map((v) => v.id)).toEqual([
-      'vantage', 'launchpad-cohort',
-    ]);
+    expect(venturesForAgent('conductor').map((v) => v.id)).toEqual(['lumera', 'lumera-media']);
   });
 
-  test('whatsapp-worker serves launchpad-cohort (students live on WhatsApp)', () => {
-    expect(venturesForAgent('whatsapp-worker').some((v) => v.id === 'launchpad-cohort')).toBe(true);
+  test('the Lumera delivery agents serve Lumera; the prospector also works media clients', () => {
+    expect(venturesForAgent('guarantee-tracker').map((v) => v.id)).toEqual(['lumera']);
+    expect(venturesForAgent('lumera-prospector').map((v) => v.id)).toEqual(['lumera', 'lumera-media']);
   });
 });

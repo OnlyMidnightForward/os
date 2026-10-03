@@ -11,9 +11,9 @@ describe('contentAgents', () => {
     db = openDb(':memory:');
     seedDatabase(db);
     const crew = contentAgents(db.agents.all());
-    expect(crew[0].id).toBe('social-agent');
+    expect(crew[0].tier).toBe('lead');
     const ids = crew.map((a) => a.id);
-    for (const id of ['social-agent', 'postly-publisher', 'adsmith-creative', 'reelkit-editor', 'renderly-creative', 'dmflow-mcp']) {
+    for (const id of ['lumera-social', 'case-study-builder', 'social-agent', 'postly-publisher', 'adsmith-creative', 'reelkit-editor', 'renderly-creative', 'dmflow-mcp']) {
       expect(ids).toContain(id);
     }
   });

@@ -1,3 +1,4 @@
+import { LUMERA_PHASES, LUMERA_ROADMAP } from '@/lib/lumera-roadmap';
 import type { FounderDb } from '@/lib/db';
 import { PERSONAS } from '@/lib/personas-seed';
 import { runCostUsd } from '@/lib/agent-costs';
@@ -487,6 +488,174 @@ const agents: Agent[] = [
     model: 'recall + plaud + slack',
     tools: ['recall', 'plaud', 'slack'],
     parentId: 'client-roster',
+    instance: 'builtin',
+  },  // ── Lumera: the Suburb Authority System and the business around it ─────────
+  {
+    id: "lumera-prospector",
+    departmentId: "dept-sales",
+    name: "Agent Prospector",
+    role: "QLD Agent Pipeline",
+    status: 'active',
+    tier: "lead",
+    description:
+      "Fills Lumera's own pipeline toward 10 agents in year one: Instagram DMs, paid ads to agents and cold outreach to established QLD agents writing $250K-$600K GCI. Reads GoHighLevel for the live pipeline.",
+    model: "ghl + lumera targets",
+    tools: ["ghl",  "instagram",  "gmail"],
+    parentId: null,
+    instance: 'builtin',
+  },
+  {
+    id: "farm-area-registry",
+    departmentId: "dept-sales",
+    name: "Farm Area Registry",
+    role: "One Agent per Farm Area",
+    status: 'active',
+    tier: "worker",
+    description:
+      "Enforces exclusivity: lists every claimed farm area across Brisbane, Gold Coast, Sunshine Coast, Toowoomba, Ipswich, Logan and Redlands, and flags any clash before a second agent signs in the same area.",
+    model: "lumera client list",
+    tools: ["ghl"],
+    parentId: "lumera-prospector",
+    instance: 'builtin',
+  },
+  {
+    id: "lumera-social",
+    departmentId: "dept-marketing-growth",
+    name: "Lumera Social",
+    role: "@lumera.marketing + Ads to Agents",
+    status: 'active',
+    tier: "lead",
+    description:
+      "Runs Lumera's own marketing: content for @lumera.marketing and Meta campaigns aimed at QLD agents. The same Suburb Authority System, pointed at agents instead of sellers.",
+    model: "meta ads + instagram",
+    tools: ["meta-ads",  "instagram"],
+    parentId: null,
+    instance: 'builtin',
+  },
+  {
+    id: "case-study-builder",
+    departmentId: "dept-marketing-growth",
+    name: "Case Study Builder",
+    role: "Proof Assets",
+    status: 'active',
+    tier: "worker",
+    description:
+      "Early clients are worth more as proof than as revenue. Watches every 90-day term and flags the moment an agent hits the Full Diary Guarantee so the result becomes a case study, testimonial video and ad.",
+    model: "lumera client list",
+    tools: ["instagram",  "notion"],
+    parentId: "lumera-social",
+    instance: 'builtin',
+  },
+  {
+    id: "guarantee-tracker",
+    departmentId: "dept-clients",
+    name: "Full Diary Guarantee",
+    role: "10 Appraisals in 90 Days",
+    status: 'active',
+    tier: "lead",
+    description:
+      "Delivery lead for the Suburb Authority System. Tracks every agent against the guarantee: day of term, appraisals booked vs pace, and the four conditions (ad spend, calls within 60 min, filming attended, approvals in 48h). Flags behind, rework and broken conditions.",
+    model: "lumera client list",
+    tools: ["ghl",  "meta-ads"],
+    parentId: null,
+    instance: 'builtin',
+  },
+  {
+    id: "shoot-planner",
+    departmentId: "dept-clients",
+    name: "Shoot Planner",
+    role: "Step 1 · Own the Feed",
+    status: 'active',
+    tier: "worker",
+    description:
+      "Plans two filming half-days per agent per month and the 12-16 short videos each one becomes: suburb market updates, street sales, seller education, listing walkthroughs. Shows the month's total shoot load.",
+    model: "lumera client list",
+    tools: ["calendar",  "reelkit"],
+    parentId: "guarantee-tracker",
+    instance: 'builtin',
+  },
+  {
+    id: "farm-ads-manager",
+    departmentId: "dept-clients",
+    name: "Farm Ads Manager",
+    role: "Step 2 · Capture the Intent",
+    status: 'active',
+    tier: "worker",
+    description:
+      "Geo-fenced Meta campaigns per farm area, weighted to 55+ and women, with suburb-report and appraisal offers and screening questions. Optimised weekly against cost per appraisal.",
+    model: "meta ads",
+    tools: ["meta-ads"],
+    parentId: "guarantee-tracker",
+    instance: 'builtin',
+  },
+  {
+    id: "speed-to-lead",
+    departmentId: "dept-clients",
+    name: "Speed-to-Lead",
+    role: "Step 3 · Never Lose the Lead",
+    status: 'active',
+    tier: "worker",
+    description:
+      "Watches the GoHighLevel follow-up: SMS and email inside 60 seconds, the 8-12 touch sequence over 30+ days, push alerts to the agent, and long-term nurture for the 3-18 month tail.",
+    model: "ghl",
+    tools: ["ghl"],
+    parentId: "guarantee-tracker",
+    instance: 'builtin',
+  },
+  {
+    id: "weekly-report",
+    departmentId: "dept-clients",
+    name: "Weekly Client Report",
+    role: "Plain-English Reporting",
+    status: 'active',
+    tier: "worker",
+    description:
+      "Drafts each agent's weekly report in plain English: what changed, what it cost, what it produced. Needs Meta and GoHighLevel connected for numbers and the LLM key to write.",
+    model: "llm + meta + ghl",
+    tools: ["meta-ads",  "ghl",  "llm"],
+    parentId: "guarantee-tracker",
+    instance: 'builtin',
+  },
+  {
+    id: "retainer-billing",
+    departmentId: "dept-finance",
+    name: "Retainer Billing",
+    role: "MRR vs Year-One Target",
+    status: 'active',
+    tier: "lead",
+    description:
+      "Monthly retainers billed through Stripe (ad spend goes straight to Meta and never touches Lumera). Reports MRR against the year-one target of 10 agents.",
+    model: "stripe + lumera client list",
+    tools: ["stripe"],
+    parentId: null,
+    instance: 'builtin',
+  },
+  {
+    id: "capacity-planner",
+    departmentId: "dept-tech",
+    name: "Capacity & Hiring",
+    role: "When Solo Stops Scaling",
+    status: 'active',
+    tier: "lead",
+    description:
+      "Turns client count into a hiring call: contract editor around agent 4, second shooter around agent 8, ads manager around agent 12. Keeps T selling instead of drowning in edits.",
+    model: "lumera capacity model",
+    tools: ["lumera"],
+    parentId: null,
+    instance: 'builtin',
+  },
+  {
+    id: "sop-librarian",
+    departmentId: "dept-tech",
+    name: "SOP Librarian",
+    role: "Systemise to License",
+    status: 'active',
+    tier: "worker",
+    description:
+      "Every process written down as it is done: shoot days, campaign builds, GHL sequences, reporting. The SOPs are what make hiring, going national and licensing the Suburb Authority System possible later.",
+    model: "notion",
+    tools: ["notion"],
+    parentId: "capacity-planner",
     instance: 'builtin',
   },
 ];
@@ -1012,6 +1181,151 @@ const sopTasks: SopTask[] = [
       'Sign off renewals and hand pricing changes to Sales',
     ],
   },
+  // ── Lumera: one SOP per agent, straight from the Suburb Authority System ───
+  {
+    id: "sop-lumera-prospector", departmentId: "dept-sales", assigneeKind: 'agent', assigneeId: "lumera-prospector",
+    title: "Fill the Lumera pipeline",
+    summary: "Ten agents in year one, from three channels.",
+    steps: [
+      "Pull a list of established QLD agents writing $250K-$600K GCI in an open farm area",
+      "Warm them with @lumera.marketing content before any outreach",
+      "DM or email a suburb-specific hook, not a pitch",
+      "Book a call; check farm-area availability before it",
+      "Log every touch in GoHighLevel so nothing goes cold",
+    ],
+  },
+  {
+    id: "sop-farm-area-registry", departmentId: "dept-sales", assigneeKind: 'agent', assigneeId: "farm-area-registry",
+    title: "Guard farm-area exclusivity",
+    summary: "One agent per farm area, always.",
+    steps: [
+      "Before any proposal, check the farm area is unclaimed",
+      "Record the agreed farm-area boundary in writing at signing",
+      "Add the claimed area to the registry the day the agent signs",
+      "Flag any prospect who overlaps a claimed area and decline politely",
+      "Release the area if an agent leaves, and offer it to the waitlist first",
+    ],
+  },
+  {
+    id: "sop-lumera-social", departmentId: "dept-marketing-growth", assigneeKind: 'agent', assigneeId: "lumera-social",
+    title: "Run Lumera's own marketing",
+    summary: "The Suburb Authority System, pointed at agents.",
+    steps: [
+      "Post agent-facing content on @lumera.marketing every weekday",
+      "Run Meta campaigns to QLD agents with a farm-area availability check offer",
+      "Retarget everyone who watched the content",
+      "Review cost per booked call weekly and kill losing creative",
+      "Feature every new case study in content and ads within a week",
+    ],
+  },
+  {
+    id: "sop-case-study-builder", departmentId: "dept-marketing-growth", assigneeKind: 'agent', assigneeId: "case-study-builder",
+    title: "Turn results into proof",
+    summary: "Early clients are worth more as proof than revenue.",
+    steps: [
+      "Screenshot every booked appraisal and win as it lands",
+      "When an agent hits 10 appraisals, book a testimonial shoot within two weeks",
+      "Write the case study: farm area, starting point, 90-day numbers, quote",
+      "Cut it into an ad, a post and a site section",
+      "Ask the agent for a referral to another non-competing agent",
+    ],
+  },
+  {
+    id: "sop-guarantee-tracker", departmentId: "dept-clients", assigneeKind: 'agent', assigneeId: "guarantee-tracker",
+    title: "Deliver the Full Diary Guarantee",
+    summary: "10 booked appraisals in 90 days, or rework until there.",
+    steps: [
+      "Agree the definition of a booked appraisal in writing before day 1",
+      "Track appraisals booked vs pace every week from day 15",
+      "Check the four conditions weekly: ad spend, calls within 60 min, filming attended, approvals in 48h",
+      "Raise a behind-pace agent with a fix the same week, not at day 90",
+      "Past day 90 and short: keep working free until 10, and say so plainly",
+    ],
+  },
+  {
+    id: "sop-shoot-planner", departmentId: "dept-clients", assigneeKind: 'agent', assigneeId: "shoot-planner",
+    title: "Own the Feed",
+    summary: "Two half-days a month become 12-16 videos.",
+    steps: [
+      "Book both filming half-days a month ahead",
+      "Send the shot list: market update, street sales, seller education, listing walkthroughs",
+      "Film, edit, caption and schedule 12-16 short videos",
+      "Distribute daily to a geo-fenced farm-area audience only",
+      "Review which videos drove enquiries and film more of those next month",
+    ],
+  },
+  {
+    id: "sop-farm-ads-manager", departmentId: "dept-clients", assigneeKind: 'agent', assigneeId: "farm-ads-manager",
+    title: "Capture the Intent",
+    summary: "Catch sellers the week they start thinking about it.",
+    steps: [
+      "Geo-fence Meta campaigns to the farm area, weighted to 55+ and women",
+      "Offer a suburb market report or appraisal, never a generic form",
+      "Ask timeframe, property type and ownership on the form",
+      "Retarget content viewers",
+      "Optimise weekly against cost per appraisal",
+    ],
+  },
+  {
+    id: "sop-speed-to-lead", departmentId: "dept-clients", assigneeKind: 'agent', assigneeId: "speed-to-lead",
+    title: "Never Lose the Lead",
+    summary: "Every enquiry chased, even when the agent doesn't.",
+    steps: [
+      "Instant SMS and email inside 60 seconds of an enquiry",
+      "Push notification to the agent with answers and a one-tap call",
+      "Run the 8-12 touch sequence over 30+ days",
+      "Move unconverted leads into 3-18 month nurture",
+      "Audit a sample of enquiries weekly for response time and call outcome",
+    ],
+  },
+  {
+    id: "sop-weekly-report", departmentId: "dept-clients", assigneeKind: 'agent', assigneeId: "weekly-report",
+    title: "Send the weekly report",
+    summary: "Plain English: what changed, what it cost, what it produced.",
+    steps: [
+      "Pull spend, leads and booked appraisals for the week",
+      "Write what changed and why in plain English",
+      "State cost per appraisal against last week",
+      "Send it the same day every week",
+      "Log the agent's questions and feed them into next week's changes",
+    ],
+  },
+  {
+    id: "sop-retainer-billing", departmentId: "dept-finance", assigneeKind: 'agent', assigneeId: "retainer-billing",
+    title: "Bill retainers",
+    summary: "Retainers through Stripe; ad spend never touches Lumera.",
+    steps: [
+      "Invoice the retainer on the agent's start date each month",
+      "Confirm ad spend is billed directly to the agent's Meta account",
+      "Chase any unpaid invoice at 3 and 7 days",
+      "Report MRR against the year-one target monthly",
+      "Reconcile Stripe payouts to the bank monthly",
+    ],
+  },
+  {
+    id: "sop-capacity-planner", departmentId: "dept-tech", assigneeKind: 'agent', assigneeId: "capacity-planner",
+    title: "Hire before it breaks",
+    summary: "Turn client count into a hiring call.",
+    steps: [
+      "Count signed agents and monthly filming half-days",
+      "Line up a contract editor before agent 4",
+      "Add a second shooter around agent 8",
+      "Hand weekly ad optimisation to an ads manager around agent 12",
+      "Write the SOP for a role before hiring into it",
+    ],
+  },
+  {
+    id: "sop-sop-librarian", departmentId: "dept-tech", assigneeKind: 'agent', assigneeId: "sop-librarian",
+    title: "Write it down while doing it",
+    summary: "SOPs make hiring, going national and licensing possible.",
+    steps: [
+      "Record a Loom or notes the first time any process is done",
+      "Turn it into a numbered SOP the same week",
+      "Store every SOP in one place, one page per process",
+      "Review SOPs quarterly and after every hire",
+      "Package the SOP set as the licensable Suburb Authority System playbook",
+    ],
+  },
 ];
 
 // The tool registry behind /reference and the graph. `status` is honest about
@@ -1065,7 +1379,8 @@ const tools: Tool[] = [
 // Every row names the phase it advances: the phase cards on /roadmap read
 // their bar as done/total of the rows they own, so a row without a phase
 // would quietly shrink a percentage instead of showing up in it.
-const roadmap: RoadmapItem[] = [
+/** The demo's original roadmap, kept for reference; Lumera's plan is seeded instead. */
+export const DEMO_ROADMAP: RoadmapItem[] = [
   { id: 'rm-v1', title: 'FOUNDER OS v1 baseline', quarter: '2026-Q2', status: 'done', departmentId: 'dept-tech', description: 'Six views, SQLite repos, 32 tests.', phaseId: 'phase-2' },
   { id: 'rm-mono', title: 'Monochrome rebuild + real connectors', quarter: '2026-Q2', status: 'done', departmentId: 'dept-tech', description: 'Black & white theme; IMAP, Slack, Stripe, gbrain wired.', phaseId: 'phase-1' },
   { id: 'rm-gbrain', title: 'G-Brain provider live', quarter: '2026-Q2', status: 'done', departmentId: 'dept-tech', description: 'gbrain CLI doctor/query + brain-store local fallback.', phaseId: 'phase-1' },
@@ -1109,12 +1424,16 @@ const domains: Domain[] = [
   { id: 'brm-8', number: 8, title: 'Security', color: GRAY.dark, items: ['.env.local secrets (gitignored)', 'Read-only connector scopes', 'No keys in repo'] },
 ];
 
-const phases: Phase[] = [
+/** The demo's original build phases, kept for reference. */
+export const DEMO_PHASES: Phase[] = [
   { id: 'phase-1', number: 1, title: 'Real Connections', items: ['4 email inboxes', 'Slack', 'Payment processors', 'G-Brain'] },
   { id: 'phase-2', number: 2, title: 'Real Agents', items: ['Runtime + run log', 'Honest status board', 'On-demand runs'] },
   { id: 'phase-3', number: 3, title: 'Autonomy', items: ['Scheduled runs', 'LLM digests', 'Failure alerts'] },
   { id: 'phase-4', number: 4, title: 'Dedicated Host', items: ['Migrate compute', 'Remote access + auth', '24/7 uptime'] },
 ];
+
+const roadmap: RoadmapItem[] = LUMERA_ROADMAP;
+const phases: Phase[] = LUMERA_PHASES;
 
 // The @founderos.ai footprint, handles straight from the Postly config.
 const socialAccounts: SocialAccount[] = [

@@ -26,8 +26,8 @@ describe('shared nav config', () => {
     expect(hrefs).not.toContain('/brain');
   });
 
-  test('digit shortcuts (1–9) map to the first 9 views in visible order', () => {
-    expect(DIGIT_VIEWS).toEqual(NAV_ORDER.slice(0, 9));
+  test('digit shortcuts (1–9) map to the first 9 views in visible order, AdPilot excepted', () => {
+    expect(DIGIT_VIEWS).toEqual(NAV_ORDER.filter((h) => h !== '/adpilot').slice(0, 9));
     expect(DIGIT_VIEWS).toHaveLength(9);
   });
 

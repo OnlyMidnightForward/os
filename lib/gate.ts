@@ -1,15 +1,13 @@
 /**
  * Demo gate predicate — pure and env-only (NO node imports) so it is safe to
- * pull into the Edge middleware bundle. The gate used to fire on
- * `process.env.VERCEL`, but Railway never sets that; it now keys on explicit
- * intent (DEMO_GATE) plus any known deployment platform. Local dev stays open.
+ * pull into the Edge middleware bundle. Gated means connectors report a
+ * representative "connected" for a public showcase. Lumera's deployment runs
+ * real connectors, so the gate is opt-in only: being on Railway or Vercel no
+ * longer turns it on.
  *
- *   DEMO_GATE=1  -> always gated  (set this on the Railway demo service)
- *   DEMO_GATE=0  -> never gated   (explicit escape hatch)
- *   otherwise    -> gated whenever a deployment platform is detected
+ *   DEMO_GATE=1  -> gated (a public showcase instance)
+ *   otherwise    -> not gated; every connector reports its honest status
  */
 export function isGated(env: Record<string, string | undefined> = process.env): boolean {
-  if (env.DEMO_GATE === '0') return false;
-  if (env.DEMO_GATE === '1') return true;
-  return !!(env.VERCEL || env.RAILWAY_ENVIRONMENT);
+  return env.DEMO_GATE === '1';
 }

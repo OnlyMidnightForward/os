@@ -32,7 +32,7 @@ describe('graph lenses — Alex taxonomy (2026-07-12)', () => {
 
   test('entity lenses match by node kind against the real seeded graph', () => {
     expect(lensNodeSet('ent-people', ctx).size).toBe(5); // seeded roster
-    expect(lensNodeSet('ent-subagents', ctx).size).toBe(32); // -notion-sync retired, +brand-deal and newsletter agents
+    expect(lensNodeSet('ent-subagents', ctx).size).toBe(44); // demo 32 + 12 Lumera agents
     expect(lensNodeSet('ent-departments', ctx).size).toBe(6);
     expect(lensNodeSet('ent-sops', ctx).size).toBeGreaterThan(20);
     expect(lensNodeSet('ent-tools', ctx).size).toBeGreaterThan(20);

@@ -25,6 +25,8 @@ const RUNTIME_VARS = new Set([
   '--conductor-w', '--sidebar-w', '--funnel-s', '--agent-angle',
   '--kg-cam-k', '--kg-ddx', '--kg-ddy', '--kg-sdx', '--kg-sdy', '--kg-syn-delay', '--kg-c-',
   '--font-mono',
+  // DM Sans, set on <html> by next/font in app/layout.tsx (Lumera theme)
+  '--font-dm',
   // blueprint canvas (Slab import, 2026-09-17): set inline per node/edge by HierarchyCanvas
   '--c', '--d', '--ec', '--ga', '--gs', '--gox', '--goy', '--tx', '--ty', '--sc',
   // kind colours are picked by template (`var(--bh-k-${kind})`); every concrete --bh-k-* is defined in globals.css

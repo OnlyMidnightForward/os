@@ -346,6 +346,64 @@
   --kg-c-fafafa: #16222c; /* knowledge white → ink */
 }
 
+/* Lumera  -  the default identity, sampled from lumeramarketing.com.au
+   (--color-deep / panel2 / body / dim / p1-p3 / gold). Deep violet-black,
+   violet accent with a gold second voice, DM Sans, rounder geometry and the
+   site's soft violet glow at the top of the canvas. Status stays semantic. */
+:root[data-theme='lumera'] {
+  color-scheme: dark;
+  --font-ui: var(--font-dm);
+  --bg: #0a0910;
+  --bg-2: #0d0b14;
+  --surface: #121019;
+  --surface-2: #191821;
+  --surface-3: #221f2c;
+  --border: #211e2b;
+  --border-strong: #332e42;
+  --text: #eceaf1;
+  --text-2: #97949f;
+  --text-3: #66626f;
+  --accent: #a855f7;
+  --accent-2: #c084fc;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(168, 85, 247, 0.1);
+  --accent-line: rgba(168, 85, 247, 0.35);
+  --gold: #d9b676;
+  --gold-soft: #f0dcb0;
+  --ok: #34d399;
+  --warn: #f5b74a;
+  --err: #f43f5e;
+  --glow: 0 0 40px rgba(124, 58, 237, 0.12);
+  --grid: transparent;
+  --hairline: #1a1822;
+  --brain-1: #a855f7;
+  --brain-2: #d9b676;
+  --brain-3: #c084fc;
+  --funnel-hot: #f43f5e;
+  --funnel-warm: #d9b676;
+  --funnel-cold: #66626f;
+  --funnel-s0: #c084fc;
+  --funnel-s1: #a855f7;
+  --funnel-s2: #7c3aed;
+  --funnel-s3: #d9b676;
+  --funnel-s4: #34d399;
+  --funnel-s5: #5b4b8a;
+  --funnel-s6: #3a3548;
+  --kg-tool: #d9b676;
+}
+/* Rounder, softer geometry like the site's cards and pill buttons. */
+:root[data-theme='lumera'] .rounded-sm-t { border-radius: 8px; }
+:root[data-theme='lumera'] .rounded-md-t { border-radius: 14px; }
+:root[data-theme='lumera'] .rounded-lg-t { border-radius: 18px; }
+:root[data-theme='lumera'] .rounded-ctl { border-radius: 12px; }
+:root[data-theme='lumera'] .rounded-panel { border-radius: 18px; }
+:root[data-theme='lumera'] .rounded-tile { border-radius: 20px; }
+:root[data-theme='lumera'] body {
+  background-image: radial-gradient(1100px 520px at 50% -8%, rgba(124, 58, 237, 0.2), transparent 65%);
+  background-attachment: fixed;
+  font-variant-numeric: tabular-nums;
+}
+
 /* Row-divider hairlines for every theme (mono sets its own above, and the
    bare :root default already carries it). */
 :root[data-theme='dark'] {

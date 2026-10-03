@@ -134,7 +134,7 @@ describe('PATCH /api/roadmap', () => {
   };
 
   test('marks a seeded item done and hands back the whole board', async () => {
-    const res = await patch({ id: 'rm-workers', status: 'done' });
+    const res = await patch({ id: 'lr-os', status: 'done' });
     expect(res.status).toBe(200);
     const body = (await res.json()) as { item: RoadmapItem; quarters: unknown[] };
     expect(body.item.status).toBe('done');
@@ -142,7 +142,7 @@ describe('PATCH /api/roadmap', () => {
   });
 
   test('rejects a status that is not on the roadmap vocabulary', async () => {
-    expect((await patch({ id: 'rm-workers', status: 'shipped-ish' })).status).toBe(400);
+    expect((await patch({ id: 'lr-os', status: 'shipped-ish' })).status).toBe(400);
   });
 
   test('404s honestly for an id that is not there', async () => {

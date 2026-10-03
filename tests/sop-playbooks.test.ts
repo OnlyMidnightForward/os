@@ -17,8 +17,8 @@ describe('SOP playbooks', () => {
   const tasks = db.sopTasks.all();
   afterAll(() => db.close());
 
-  test('there are the expected 38 seeded SOP tasks', () => {
-    expect(tasks.length).toBe(37); // -sop-notion-sync retired, +brand-deal and newsletter agents
+  test('there are the expected 49 seeded SOP tasks', () => {
+    expect(tasks.length).toBe(49); // demo 37 + one per Lumera agent (12)
   });
 
   test('every SOP task resolves to a schema-valid playbook', () => {

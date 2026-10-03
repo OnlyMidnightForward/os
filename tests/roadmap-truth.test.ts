@@ -49,44 +49,35 @@ describe('currentFocus', () => {
 });
 
 /**
- * Spring cleaning, 2026-09-06: the seeded roadmap had four 2026-Q2 items still
- * flagged "now" that shipped months ago, and three 2026-Q3 items flagged
- * "next" that are running in production. A roadmap that lies is worse than no
- * roadmap.
+ * Lumera's five-year plan (interview, 2026-10-03). Pre-launch, so nothing is
+ * "done" yet, the work in flight sits in the quarter we are in, and the plan
+ * runs out to the five-year review.
  */
 describe('the seeded roadmap tells the truth', () => {
   const db = openDb(':memory:');
   seedDatabase(db);
   const items = db.roadmap.all();
-  const byId = new Map(items.map((i) => [i.id, i]));
+  const phaseIds = new Set(db.phases.all().map((p) => p.id));
 
-  test('everything shipped in 2026-Q2 is marked done', () => {
-    const q2 = items.filter((i) => i.quarter === '2026-Q2');
-    expect(q2.length).toBeGreaterThan(0);
-    expect(q2.every((i) => i.status === 'done')).toBe(true);
+  test('pre-launch: nothing is claimed as done', () => {
+    expect(items.some((i) => i.status === 'done')).toBe(false);
   });
 
-  test('the things that are demonstrably live are not still "next"', () => {
-    // The cron tick runs on the host, the app IS on the host, and the brain
-    // moved to local Ollama embeddings on 2026-08-31.
-    for (const id of ['rm-scheduler', 'rm-host', 'rm-embeddings']) {
-      expect(byId.get(id)?.status, id).toBe('done');
-    }
-  });
-
-  test('the retired Notion connector never comes back', () => {
-    expect(items.some((i) => /notion/i.test(i.title))).toBe(false);
+  test('five phases, and every row advances one of them', () => {
+    expect(phaseIds.size).toBe(5);
+    for (const i of items) expect(phaseIds.has(i.phaseId ?? ''), i.id).toBe(true);
   });
 
   test('current focus lands in the quarter we are actually in', () => {
     const focus = currentFocus(items);
-    expect(focus?.quarter).toBe('2026-Q3');
+    expect(focus?.quarter).toBe('2026-Q4');
     expect(focus!.items.length).toBeGreaterThan(0);
   });
 
-  test('there is still work ahead of us', () => {
-    expect(items.some((i) => i.status === 'next' || i.status === 'later')).toBe(true);
-    expect(groupRoadmapByQuarter(items).map((q) => q.quarter)).toContain('2026-Q4');
+  test('the plan runs five years, to the review', () => {
+    const quarters = groupRoadmapByQuarter(items).map((q) => q.quarter);
+    expect(quarters[0]).toBe('2026-Q4');
+    expect(quarters[quarters.length - 1]).toBe('2031-Q3');
   });
 });
 
